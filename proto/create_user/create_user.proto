@@ -1,0 +1,28 @@
+syntax="proto3";
+package userpb;
+option go_package = "hicollege/gen/userpb";
+import "buf/validate/validate.proto";
+
+message CreateUserRequest {
+  string name = 1 [(buf.validate.field).string.min_len = 3];
+  string college = 2 [(buf.validate.field).string.min_len = 3];
+  string course_name = 3 [(buf.validate.field).string.min_len = 3];
+  string graduation_year = 4 [(buf.validate.field).string.min_len = 4];
+  string dob =5 [(buf.validate.field).string.min_len = 10];
+  string location = 6 [(buf.validate.field).string.min_len = 3];
+  string phone_number = 7 [(buf.validate.field).string.min_len = 10];
+}
+
+message CreateUserResponse {
+    string name = 1 ;
+    string college = 2 ;
+    string course_name = 3 ;
+    string graduation_year = 4 ;
+    string dob =5 ;
+    string location = 6; 
+    string phone_number = 7;
+}
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+}

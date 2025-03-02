@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package onboardingpb;
+option go_package = "hicollege/gen/onboardingpb"; 
+import "buf/validate/validate.proto";
+
+
+message SendOtpRequest {
+  string phone_number = 1 [(buf.validate.field).string.min_len = 10];
+}
+
+message SendOtpResponse {
+  string otp = 1;
+}
+
+message VerifyOtpRequest {
+  string phone_number = 1 [(buf.validate.field).string.min_len = 10];
+  string otp = 2 [(buf.validate.field).string.min_len = 1];
+}
+
+message VerifyOtpResponse {
+  string message = 1;
+}
+
+
+service OtpService {
+  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse);
+  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse); 
+}
